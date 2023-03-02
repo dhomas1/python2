@@ -114,8 +114,8 @@ pushd "target/${FOLDER}"
 ./configure --host="${HOST}" --prefix="${DEPS}" --libdir="${DEST}/lib" --disable-static
 make
 make install
-mkdir -p "${DEPS}/include/"
-cp -v "${DEST}/lib/${FOLDER}/include"/* "${DEPS}/include/"
+# mkdir -p "${DEPS}/include/"
+# cp -v "${DEST}/lib/${FOLDER}/include"/* "${DEPS}/include/"
 popd
 }
 
