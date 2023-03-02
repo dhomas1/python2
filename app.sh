@@ -35,7 +35,7 @@ _build_openssl() {
 local VERSION="1.1.1t"
 local FOLDER="openssl-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
-local URL="http://www.openssl.org/source${FILE}"
+local URL="http://www.openssl.org/source/${FILE}"
 
 _download_tgz "${FILE}" "${URL}" "${FOLDER}"
 # cp -vf "src/${FOLDER}-parallel-build.patch" "target/${FOLDER}/"
