@@ -89,7 +89,7 @@ popd
 
 ### BDB ###
 _build_bdb() {
-local VERSION="18.1.40"
+local VERSION="6.1.26"
 local FOLDER="db-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://download.oracle.com/berkeley-db/${FILE}"
