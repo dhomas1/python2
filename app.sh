@@ -1,6 +1,6 @@
 ### ZLIB ###
 _build_zlib() {
-local VERSION="1.2.8"
+local VERSION="1.2.13"
 local FOLDER="zlib-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://zlib.net/${FILE}"
@@ -15,16 +15,16 @@ popd
 
 ### BZIP ###
 _build_bzip() {
-local VERSION="1.0.6"
+local VERSION="1.0.8"
 local FOLDER="bzip2-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
-local URL="http://bzip.org/1.0.6/${FILE}"
+local URL="https://sourceware.org/pub/bzip2/${FILE}"
 
 _download_tgz "${FILE}" "${URL}" "${FOLDER}"
 pushd "target/${FOLDER}"
 sed -i -e "s/all: libbz2.a bzip2 bzip2recover test/all: libbz2.a bzip2 bzip2recover/" Makefile
 make -f Makefile-libbz2_so CC="${CC}" AR="${AR}" RANLIB="${RANLIB}" CFLAGS="${CFLAGS} -fpic -fPIC -Wall -D_FILE_OFFSET_BITS=64"
-ln -s libbz2.so.1.0.6 libbz2.so
+ln -s libbz2.so.1.0.8 libbz2.so
 cp -avR *.h "${DEPS}/include/"
 cp -avR *.so* "${DEST}/lib/"
 popd
@@ -32,15 +32,15 @@ popd
 
 ### OPENSSL ###
 _build_openssl() {
-local VERSION="1.0.2d"
+local VERSION="1.1.1t"
 local FOLDER="openssl-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
-local URL="http://mirror.switch.ch/ftp/mirror/openssl/source/${FILE}"
+local URL="http://www.openssl.org/source${FILE}"
 
 _download_tgz "${FILE}" "${URL}" "${FOLDER}"
-cp -vf "src/${FOLDER}-parallel-build.patch" "target/${FOLDER}/"
+# cp -vf "src/${FOLDER}-parallel-build.patch" "target/${FOLDER}/"
 pushd "target/${FOLDER}"
-patch -p1 -i "${FOLDER}-parallel-build.patch"
+# patch -p1 -i "${FOLDER}-parallel-build.patch"
 ./Configure --prefix="${DEPS}" --openssldir="${DEST}/etc/ssl" \
   zlib-dynamic --with-zlib-include="${DEPS}/include" --with-zlib-lib="${DEPS}/lib" \
   shared threads linux-armv4 -DL_ENDIAN ${CFLAGS} ${LDFLAGS} -Wa,--noexecstack -Wl,-z,noexecstack
@@ -58,7 +58,7 @@ popd
 
 ### NCURSES ###
 _build_ncurses() {
-local VERSION="5.9"
+local VERSION="6.0"
 local FOLDER="ncurses-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://ftp.gnu.org/gnu/ncurses/${FILE}"
@@ -74,10 +74,10 @@ popd
 
 ### SQLITE ###
 _build_sqlite() {
-local VERSION="3081101"
+local VERSION="3410000"
 local FOLDER="sqlite-autoconf-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
-local URL="http://sqlite.org/2015/${FILE}"
+local URL="http://sqlite.org/$(date +%Y)/${FILE}"
 
 _download_tgz "${FILE}" "${URL}" "${FOLDER}"
 pushd "target/${FOLDER}"
@@ -89,7 +89,7 @@ popd
 
 ### BDB ###
 _build_bdb() {
-local VERSION="5.3.28"
+local VERSION="18.1.40"
 local FOLDER="db-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://download.oracle.com/berkeley-db/${FILE}"
@@ -104,7 +104,7 @@ popd
 
 ### LIBFFI ###
 _build_libffi() {
-local VERSION="3.2.1"
+local VERSION="3.4.3"
 local FOLDER="libffi-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="ftp://sourceware.org/pub/libffi/${FILE}"
@@ -121,7 +121,7 @@ popd
 
 ### EXPAT ###
 _build_expat() {
-local VERSION="2.1.0"
+local VERSION="2.5.0"
 local FOLDER="expat-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="http://sourceforge.net/projects/expat/files/expat/${VERSION}/${FILE}"
@@ -136,7 +136,7 @@ popd
 
 ### PYTHON2 ###
 _build_python() {
-local VERSION="2.7.10"
+local VERSION="2.7.18"
 local FOLDER="Python-${VERSION}"
 local FILE="${FOLDER}.tgz"
 local URL="https://www.python.org/ftp/python/${VERSION}/${FILE}"
@@ -175,10 +175,10 @@ _build_setuptools() {
 # http://nairobi-embedded.org/qemu_usermode.html#qemu_ld_prefix
 # export QEMU_LD_PREFIX="${HOME}/xtools/toolchain/${DROBO}/${HOST}/libc"
 
-local VERSION="18.1"
+local VERSION="67.4.0"
 local FOLDER="setuptools-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
-local URL="https://pypi.python.org/packages/source/s/setuptools/${FILE}"
+local URL="https://github.com/pypa/setuptools/archive/refs/tags/v${VERSION}.tar.gz"
 
 _download_tgz "${FILE}" "${URL}" "${FOLDER}"
 pushd "target/${FOLDER}"
@@ -203,7 +203,7 @@ _build_pip() {
 # http://nairobi-embedded.org/qemu_usermode.html#qemu_ld_prefix
 # export QEMU_LD_PREFIX="${HOME}/xtools/toolchain/${DROBO}/${HOST}/libc"
 
-local VERSION="7.1.0"
+local VERSION="23.0.1"
 local FOLDER="pip-${VERSION}"
 local FILE="${FOLDER}.tar.gz"
 local URL="https://pypi.python.org/packages/source/p/pip/${FILE}"
