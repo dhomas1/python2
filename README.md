@@ -4,7 +4,7 @@ This is a set of scripts to package a DroboApp from scratch, i.e., download sour
 
 ## I just want to install the DroboApp, what do I do?
 
-Check the [releases](https://github.com/droboports/python2/releases) page. If there are no releases available, then you have to compile.
+Check the [releases](https://github.com/dhomas1/python2/releases) page. If there are no releases available, then you have to compile.
 
 ## How to compile
 
